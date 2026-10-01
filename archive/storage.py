@@ -5,7 +5,7 @@ YOU IMPLEMENT THIS FILE.
 The file format is CSV with no header row. One record per line, five fields
 separated by commas, in this order:
 
-    id,title,city,year,condition
+    id ,title,city,year,condition
     MS001,Tarikh al-Sudan,Timbuktu,1655,fragile
 
 Remember Session 1: a file is one long line of characters. The comma
