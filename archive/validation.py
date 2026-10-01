@@ -74,7 +74,13 @@ def validate_year(value):
     That is the whole point of a range check.
 
     Returns (bool, str).
+
     """
+    if 1100 <= value <= 1900:
+        return True, "Valid"
+    else:
+        return False, "Invalid" 
+
     raise NotImplementedError("validate_year")
 
 
