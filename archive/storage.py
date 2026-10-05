@@ -16,31 +16,28 @@ any work.
 from archive.errors import MalformedRecordError
 
 FIELD_NAMES = ["id", "title", "city", "year", "condition"]
-
-
+import csv
 def parse_line(line):
-    import csv
-    with open("archive.csv", newline="") as file:
-        rows=list(csv.reader(file))
-        row=rows[line-1]
+    """Parse one CSV line into a record dictionary."""
+    row = next(csv.reader([line]))
 
-        record= {
-            "id": row[0],
-            "title": row[1],
-            "city": row[2],
-            "year":  int(row[3]),
-            "condition": row[4]
-        }
-        nope=False
-        for field, value in record.items():
-            if value.strip() == "":
-                nope=True
-                raise ValueError("Something is wrong with it, probably missing some field or sth... ")
-            
-        if nope==False:
-            return record
+    if len(row) != len(FIELD_NAMES):
+        raise MalformedRecordError("Record must contain five fields")
 
-            
+    try:
+        year = int(row[3])
+    except ValueError:
+        raise MalformedRecordError("Year must be an integer")
+
+    record = {
+        "id": row[0],
+        "title": row[1],
+        "city": row[2],
+        "year": year,
+        "condition": row[4],
+    }
+
+    return record        
     
 
 
