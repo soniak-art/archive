@@ -13,14 +13,22 @@ separates fields; the newline separates records. Nothing else is doing
 any work.
 """
 
+import csv
+from archive.validation import validate_record
 from archive.errors import MalformedRecordError
 
+
+
 FIELD_NAMES = ["id", "title", "city", "year", "condition"]
-import csv
+
 def parse_line(line):
     """Parse one CSV line into a record dictionary."""
-    row = next(csv.reader([line]))
-
+    row = next(csv.reader([line])) 
+    #I turn line into a list using the "[]" 
+    #csv.reader is what they called an iterator, not an actual array, it is an iterator that iterates through the rows of a csv file
+    #apparently, csv.reader views the strings as separators of lines...
+    # apparently, when next asks for the next element, it gets all elements instead
+    # The rest of this function is basic-ish from then on                     
     if len(row) != len(FIELD_NAMES):
         raise MalformedRecordError("Record must contain five fields")
 
